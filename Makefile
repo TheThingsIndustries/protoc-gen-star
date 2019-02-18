@@ -79,6 +79,19 @@ testdata-go: bin/protoc-gen-go bin/protoc-gen-debug # generate go-specific testd
 		testdata-packages \
 		testdata-outputs
 
+vendor/github.com/gogo/protobuf/gogoproto/gogo.proto: go.mod go.sum
+	GO111MODULE=on go mod vendor
+
+WORKDIR := $(shell mkdir -p $(PWD)/.work && mktemp -d "$(PWD)/.work/tmp.XXX")
+
+.PHONY: gogoproto
+gogoproto/gogo.pb.go: vendor/github.com/gogo/protobuf/gogoproto/gogo.proto
+	@perl \
+		-pe 's!(.*option[[:space:]]+.*go_package.*=.*"github.com/)gogo/protobuf(/gogoproto".*)!\1lyft/protoc-gen-star\2!' \
+		$< > $(WORKDIR)/gogo.proto
+	@protoc -I$(WORKDIR) -I$(PWD)/vendor --go_out=$(WORKDIR) $(WORKDIR)/gogo.proto
+	@mv $(WORKDIR)/github.com/lyft/protoc-gen-star/gogoproto/gogo.pb.go $@
+
 bin/protoc-gen-go: # creates the protoc-gen-go plugin using the vendored version
 	go build -o $@ github.com/golang/protobuf/protoc-gen-go
 
@@ -90,6 +103,7 @@ bin/protoc-gen-debug: # creates the protoc-gen-debug protoc plugin for output Pr
 
 .PHONY: clean
 clean:
+	rm -rf .work
 	rm -rf vendor
 	rm -rf bin
 	rm -rf testdata/generated
