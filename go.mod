@@ -1,3 +1,5 @@
+go 1.13
+
 module github.com/lyft/protoc-gen-star
 
 require (
