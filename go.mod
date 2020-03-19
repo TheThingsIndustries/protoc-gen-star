@@ -1,16 +1,16 @@
 module github.com/lyft/protoc-gen-star
 
-go 1.13
+go 1.14
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gogo/protobuf v1.3.1
-	github.com/golang/protobuf v1.3.3
+	github.com/golang/protobuf v1.3.5
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/spf13/afero v1.2.2
 	github.com/stretchr/testify v1.4.0
-	golang.org/x/lint v0.0.0-20200130185559-910be7a94367
+	golang.org/x/lint v0.0.0-20200302205851-738671d3881b
 	golang.org/x/text v0.3.2 // indirect
-	golang.org/x/tools v0.0.0-20200221224223-e1da425f72fd // indirect
+	golang.org/x/tools v0.0.0-20200318150045-ba25ddc85566 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 )
