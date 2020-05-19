@@ -14,7 +14,7 @@ lint: # lints the package for common code smells
 		test -z "$$out" || (echo $$out && exit 1); \
 	done
 	go run golang.org/x/lint/golint -set_exit_status $(PKGS)
-	go vet -all -shadow -shadowstrict $(PKGS)
+	go vet -all
 
 .PHONY: quick
 quick: testdata # runs all tests without the race detector or coverage
